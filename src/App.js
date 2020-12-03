@@ -27,7 +27,7 @@ import {
 } from 'react-native-safe-area-context'; //使用这个组件包裹的话 StatusBar的沉浸式状态栏会失效
 
 import routerConfig from '@/configs/router'; //路由配置
-import modelOption from '@/models/modelOption'; //数据管理
+import modelsOption from '@/models/modelsOption'; //数据管理
 
 import '@/utils/storage'; //本地储存
 import toolFn from '@/utils/toolFunction';  //工具函数
@@ -37,7 +37,7 @@ import registerUncaughtExceptionHandlers from '@/utils/uncaught-exception-handle
 
 //DVA实例初始化并导出
 const dvaApp = create(); 
-modelOption.forEach((obj) => {  
+modelsOption.forEach((obj) => {  
     dvaApp.model(obj);
 });
 dvaApp.start();      
@@ -92,10 +92,9 @@ class App extends React.PureComponent {
     }
 
     componentDidMount() {    
-        //在这可以作获取广告页的图片等操作之后再关闭启动页      
-        //关闭启动页(ios未配置)
+        //在这可以作获取广告页的图片等操作之后再关闭启动页             
         setTimeout(()=>{
-            SplashScreen.hide();
+            SplashScreen.hide(); //关闭启动页(ios未配置)
         }, 1000) 
     }
 
@@ -107,6 +106,7 @@ class App extends React.PureComponent {
         StatusBar.setBackgroundColor('rgba(0,0,0,0)');
         StatusBar.setTranslucent(true);
         TextInput.defaultProps.padding = 0;
+        TextInput.defaultProps.allowFontScaling = false;
 
         // https://reactnative.cn/docs/animations#layoutanimation-api
         // 在Android上使用 LayoutAnimation，那么目前还需要在UIManager中启用

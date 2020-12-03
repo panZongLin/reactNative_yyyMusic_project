@@ -1,27 +1,31 @@
 /**
- * 
- * function options (url, payload) {
-        return {
-            url: url,
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            data: JSON.stringify({...payload}) 
-        }
-    }
-    request({url: '/api/xxx', method: 'get'})
-    request(options('/api/xxx', payload))
+ * request({url: '/api/xxx', method: 'get'})
+ * request({url: '/api/xxx', method: 'post', data: ...})
  */
 import axios from 'axios';
 
-axios.defaults.baseURL = ''; //api的baseUrl
+axios.defaults.baseURL = 'http://42.192.13.50:3000/'; //api的baseUrl
 axios.defaults.timeout = 10000; //请求超时时间
 axios.defaults.withCredentials = true; // 跨域下允许请求保存cookie
 
+function postOptions (params) {
+    return {
+        ...params,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        data: JSON.stringify({...params.data}) 
+    }
+}
+
 export default function request(params) {
-    return axios(params)
+    let configParams = params;
+    if(params.method===('post' || 'POST')) {
+        configParams = postOptions(params);
+    }
+
+    return axios(configParams)
         .then(checkStatus)
         .then(checkCode)
         .catch(err => {
@@ -47,7 +51,7 @@ const codeMessage = {
     503: '服务不可用，服务器暂时过载或维护。',
     504: '网关超时。',
 };
-function checkStatus(response) {
+function checkStatus(response) { 
     if (response.status >= 200 && response.status < 300) {
         //...
         return response;
@@ -60,14 +64,14 @@ function checkStatus(response) {
 
 //返回data前做一些默认处理
 function checkCode(response) {
-    console.log(response)
+    //console.log(response)
     //...
     return response.data;
 }
 
 //处理请求中抛出的错误
 function handleError(error) {
-    console.log(error)
+    //console.log(error)
     //...
 }
 
@@ -95,6 +99,7 @@ axios.interceptors.request.use(config => {
             u: config.url + JSON.stringify(config.data) + '&' + config.method
         })
     })
+
     return config
 }, error => {
     return Promise.reject(error)
@@ -103,7 +108,7 @@ axios.interceptors.request.use(config => {
 // 响应拦截器
 axios.interceptors.response.use(res => {
     //...
-    removePending(config);
+    removePending(res);
     return res
 }, error => {
     return Promise.reject(error)

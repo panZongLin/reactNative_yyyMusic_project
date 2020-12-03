@@ -14,7 +14,10 @@ import defaultJpg from '@/assets/banner.jpeg';
 let Il = null;
 
 const BannerPage = (props)=> {
-    const {navigation} = props;
+    const {
+        navigation, 
+        dispatchGetBanner,
+    } = props;
     const [time, setTime] = useState(4);
 
     useEffect(()=> {
@@ -30,8 +33,13 @@ const BannerPage = (props)=> {
             clearInterval(Il); 
         }      
     }, [])
+
+    useEffect(()=> {
+        dispatchGetBanner({type: 0});
+    }, [])
     
     const jumpToMain = ()=> {
+        clearInterval(Il); 
         //使用.replace替换组件，使得该组件卸载从而执行return，手机后退键也不会退到此页面
         //使用setTimeout使得最后一次return t-1不会报错                   
         setTimeout(()=> navigation.replace('Main'), 0)
@@ -96,12 +104,13 @@ const staticStyles = StyleSheet.create({
 
 function mapStateToProps(state) {
     return {
-        //main: state.main,
+        //discoverModel: state.discoverModel,
     }
 }
 function mapDispatchToProps(dispatch) {
     return {
-        //dispatchUpdateState: (params) => dispatch({ type: 'main/updateState', payload: params}),
+        dispatchGetBanner: (params) => dispatch({ type: 'discoverModel/getBanner', payload: params}),
+        dispatchUpdateState: (params) => dispatch({ type: 'discoverModel/updateState', payload: params}),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BannerPage);
