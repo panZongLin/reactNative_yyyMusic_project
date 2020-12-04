@@ -21,9 +21,8 @@ const SwiperBanner = (props)=> {
         <Swiper style={{height: uh*130}} autoplay autoplayTimeout={5}>
             {bannerList && bannerList.length!==0 && bannerList.map((item, idx)=> {
                 return ( 
-                    <View style={staticStyles.container}>
-                        <Image
-                            key={item.encodeId}
+                    <View key={item.encodeId} style={staticStyles.container}>
+                        <Image                            
                             style={staticStyles.imageBackground}
                             source={{uri: item.imageUrl}}
                         />

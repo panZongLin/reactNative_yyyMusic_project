@@ -10,10 +10,12 @@ export default {
 	effects: {
 		*getBanner({payload}, { put, call, select }) {
 			const result = yield call(getBannerQuest, payload);
-			yield put({
-				type: 'updateState',
-				payload: {bannerList: result.banners}
-			})
+			if(result.code===200) {
+				yield put({
+					type: 'updateState',
+					payload: {bannerList: result.banners}
+				})
+			}		
         }
 	},
 	reducers: {

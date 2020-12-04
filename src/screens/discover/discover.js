@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 import { 
     View,
@@ -9,22 +9,28 @@ import {
 	TouchableOpacity   
 } from 'react-native';
 import {
+	Button,
 	SearchBar
 } from 'react-native-elements';
+import Modal from 'react-native-modal';
 import Header from '@/components/Header';
 import {uw, uh, us} from '@/utils/fitConfig';
 
-import SwiperBanner from './components/swiperBanner';
+import SwiperBanner from './pieces/swiperBanner';
 
 
-const DiscoverScreen = (props)=> {
+const DiscoverPage = (props)=> {
 	const {
 		navigation,
 		discoverModel,
 		dispatchGetBanner
 	} = props;
-	console.log('discoverModel', props)
 	const [refreshing, setRefreshing] = useState(false);
+
+	//这个navigation带有抽屉开关等方法
+	if(!global.navigation) {
+		global.navigation = navigation; 
+	}
 
 	const goToSearchPage = ()=> {
 		navigation.push('BannerPage');
@@ -36,6 +42,11 @@ const DiscoverScreen = (props)=> {
 
 		dispatchGetBanner({type: 0});
 	}
+	const [isModalVisible, setModalVisible] = useState(false);
+  
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
 	return (
 		<View style={staticStyles.container}>
@@ -67,7 +78,16 @@ const DiscoverScreen = (props)=> {
 				<SwiperBanner 
 					bannerList={discoverModel.bannerList}
 				/>
+				<Button title="Show modal" onPress={toggleModal} />
 			</ScrollView>
+			<Modal isVisible={isModalVisible}>
+				<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+					<View style={{width: 300, height: 150, backgroundColor: '#fff'}}>
+						<Text>Hello!</Text>
+						<Button title="Hide modal" onPress={toggleModal} />
+					</View>
+				</View>
+			</Modal>
 		</View>
 	)
 }
@@ -99,7 +119,7 @@ const staticStyles = StyleSheet.create({
 
 function mapStateToProps(state) {
     return {
-        discoverModel: state.discoverModel,
+		discoverModel: state.discoverModel,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -108,4 +128,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DiscoverScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DiscoverPage);
