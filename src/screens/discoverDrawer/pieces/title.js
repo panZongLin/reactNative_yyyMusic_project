@@ -13,7 +13,15 @@ import { color } from 'react-native-reanimated';
 
 
 
-const leftComponent = (props)=> {
+const leftComponent = (props)=> {  
+    if(props.nickname !=='') {
+        return (
+            <Avatar
+                rounded
+                source={{uri: props.avatarUrl}}     
+            />
+        )
+    }
     return (
         <Avatar
             rounded
@@ -29,10 +37,10 @@ const leftComponent = (props)=> {
     )
 }
 
-const centerComponent = ()=> {
+const centerComponent = (nickname)=> {
     return (
         <Text style={staticStyles.denglu}>
-            立即登录 {'>'}
+            {nickname !=='' ? nickname : '立即登录 >'}           
         </Text>
     )
 }
@@ -47,16 +55,18 @@ const rightComponent = (props)=> {
 
 const UserTitle = (props)=> {
     const {
+        avatarUrl,
+        nickname,
         goToLoginPage
     } = props;
 
 	return (
-        <TouchableOpacity activeOpacity={1} onPress={goToLoginPage}>
+        <TouchableOpacity activeOpacity={1} onPress={nickname ==='' ? goToLoginPage : ()=>{}}>
             <Header
                 backgroundColor={'#fff'}
-                leftComponent={()=> leftComponent()}
+                leftComponent={()=> leftComponent({avatarUrl, nickname})}
                 leftContainerStyle={{alignItems: 'center'}}
-                centerComponent={()=> centerComponent()}
+                centerComponent={()=> centerComponent(nickname)}
                 centerContainerStyle={{alignItems: 'flex-start'}}
                 rightComponent={()=> rightComponent()}
             />
@@ -65,10 +75,14 @@ const UserTitle = (props)=> {
 }
 
 UserTitle.defaultProps = {
+    avatarUrl: '',
+    nickname: '',
     goToLoginPage: ()=>{} 
 }
 
 UserTitle.propTypes = ({
+    avatarUrl: PropTypes.string,
+    nickname: PropTypes.string,
     goToLoginPage: PropTypes.func
 })
 

@@ -12,8 +12,8 @@ import {
 	Button,
 	SearchBar
 } from 'react-native-elements';
-import Modal from 'react-native-modal';
 import Header from '@/components/Header';
+import LoadingSkeleton from '@/components/LoadingSkeleton';
 import {uw, uh, us} from '@/utils/fitConfig';
 
 import SwiperBanner from './pieces/swiperBanner';
@@ -42,21 +42,16 @@ const DiscoverPage = (props)=> {
 
 		dispatchGetBanner({type: 0});
 	}
-	const [isModalVisible, setModalVisible] = useState(false);
-  
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
 
 	return (
-		<View style={staticStyles.container}>
+		<View style={staticStyles.container}>			
 			<Header 
 				msgNumber={10}
 				leftMenuPress={()=> navigation.openDrawer()} 
 				backgroundColor={'#f2f2f2'}
 				centerComponent={
 					<SearchBar
-						placeholder="等什么君"
+						placeholder="..."
 						style={{fontSize: us(12)}}
 						onFocus={goToSearchPage}
 						containerStyle={staticStyles.containerStyle}
@@ -75,19 +70,13 @@ const DiscoverPage = (props)=> {
 					/>
 				}
 			>
+				<LoadingSkeleton 
+					skeletonVisible={false}
+				/>
 				<SwiperBanner 
 					bannerList={discoverModel.bannerList}
 				/>
-				<Button title="Show modal" onPress={toggleModal} />
-			</ScrollView>
-			<Modal isVisible={isModalVisible}>
-				<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-					<View style={{width: 300, height: 150, backgroundColor: '#fff'}}>
-						<Text>Hello!</Text>
-						<Button title="Hide modal" onPress={toggleModal} />
-					</View>
-				</View>
-			</Modal>
+			</ScrollView>			
 		</View>
 	)
 }

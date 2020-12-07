@@ -2,6 +2,7 @@ import {
     submitLoginQuest,
     submitLoginOutQuest
 } from '@/services/userService';
+import Tools from '@/utils/toolFunction';
 
 export default {
 	namespace: 'userModel',
@@ -11,7 +12,7 @@ export default {
 	effects: {
 		*submitLogin({payload}, { put, call, select }) {
 			const result = yield call(submitLoginQuest, payload);
-            //console.log('submitLogin result', result)
+
             if(result.code===200) {
                 global.storage.save({
                     key: 'userInfo', 
@@ -20,14 +21,17 @@ export default {
                 })
                 global.navigation.replace('Main');
                 global.navigation.closeDrawer();
+            }else {
+                Tools.showMessageToast(result.message);
             }           
         },
         *submitLoginOut({payload}, { put, call, select }) {
             const result = yield call(submitLoginOutQuest, payload);
-            //console.log('submitLoginOut result', result)
+
             if(result.code===200) {
                 global.storage.remove({key: 'userInfo'});
                 global.navigation.closeDrawer();
+                global.navigation.replace('LoginPage');
             }           
         },
 	},

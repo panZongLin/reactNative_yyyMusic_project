@@ -48,32 +48,25 @@ export default {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	},
 
-	showShortToast(string, position = Toast.positions.BOTTOM) {
-		if (this.isIOS()) {
-			Toast.show(string, {
-				duration: Toast.durations.SHORT,
-				position,
-				shadow: true,
-				animation: true,
-				hideOnPress: true,
-			});
-		} else {
-			ToastAndroid.show(string, ToastAndroid.SHORT);
+	showMessageToast(message, duration="SHORT", position='BOTTOM') {
+		const durationOpt = {
+			SHORT:Toast.durations.SHORT,
+			LONG: Toast.durations.LONG 	
 		}
-	},
+		const positionOpt = {
+			TOP: Toast.positions.TOP,
+			CENTER: Toast.positions.CENTER,
+			BOTTOM: Toast.positions.BOTTOM,
+		}
 
-	showLongToast(string, position = Toast.positions.BOTTOM) {
-		if (this.isIOS()) {
-			Toast.show(string, {
-				duration: Toast.durations.LONG,
-				position,
-				shadow: true,
-				animation: true,
-				hideOnPress: true,
-			});
-		} else {
-			ToastAndroid.show(string, ToastAndroid.LONG);
-		}
+		Toast.show(message, {
+			duration: typeof duration==='number' ? duration : durationOpt[duration],
+			position: typeof position==='number' ? position : positionOpt[position],
+			backgroundColor: '#f00',
+			shadow: true,
+			animation: true,
+			hideOnPress: true		
+		});
 	},
 
 	isNumeric(value) {

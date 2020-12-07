@@ -25,6 +25,7 @@ import {
     SafeAreaProvider, 
     SafeAreaView 
 } from 'react-native-safe-area-context'; //使用这个组件包裹的话 StatusBar的沉浸式状态栏会失效
+import { RootSiblingParent } from 'react-native-root-siblings'; //react-native-root-toast
 
 import routerConfig from '@/configs/router'; //路由配置
 import modelsOption from '@/models/modelsOption'; //数据管理
@@ -119,24 +120,26 @@ class App extends React.PureComponent {
     render() {
         return (                                              
             <Provider store={dvaApp._store}> 
-                <StatusBar barStyle="dark-content" />                       
-                <NavigationContainer>
-                    <Stack.Navigator                                
-                        initialRouteName="BannerPage"
-                        screenOptions={defaultNavigationOptions}                              
-                        headerMode="none" //隐藏 Navigator自带标题栏
-                    >
-                        {routerConfig && routerConfig.map((item, index)=> {
-                            return(
-                                <Stack.Screen 
-                                    key={item.name} 
-                                    name={item.name} 
-                                    component={item.component} 
-                                />
-                            )
-                        })}
-                    </Stack.Navigator>
-                </NavigationContainer>
+                <StatusBar barStyle="dark-content" />   
+                <RootSiblingParent>
+                    <NavigationContainer>
+                        <Stack.Navigator                                
+                            initialRouteName="BannerPage"
+                            screenOptions={defaultNavigationOptions}                              
+                            headerMode="none" //隐藏 Navigator自带标题栏
+                        >
+                            {routerConfig && routerConfig.map((item, index)=> {
+                                return(
+                                    <Stack.Screen 
+                                        key={item.name} 
+                                        name={item.name} 
+                                        component={item.component} 
+                                    />
+                                )
+                            })}
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                </RootSiblingParent>                                  
             </Provider>          
         );
     }

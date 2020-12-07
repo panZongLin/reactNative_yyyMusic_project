@@ -25,7 +25,7 @@ const LoginPage = (props)=> {
 
     const submitLogin = ()=> {
         if(phone==='') {
-            navigation.goBack();
+            navigation.replace('Main');
             global.navigation.closeDrawer(); 
             return;
         }
