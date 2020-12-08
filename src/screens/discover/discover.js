@@ -13,7 +13,6 @@ import {
 	SearchBar
 } from 'react-native-elements';
 import Header from '@/components/Header';
-import LoadingSkeleton from '@/components/LoadingSkeleton';
 import {uw, uh, us} from '@/utils/fitConfig';
 
 import SwiperBanner from './pieces/swiperBanner';
@@ -33,7 +32,7 @@ const DiscoverPage = (props)=> {
 	}
 
 	const goToSearchPage = ()=> {
-		navigation.push('BannerPage');
+		navigation.push('SearchPage');
 	}
 
 	const scrollViewRefresh = ()=> {
@@ -70,9 +69,6 @@ const DiscoverPage = (props)=> {
 					/>
 				}
 			>
-				<LoadingSkeleton 
-					skeletonVisible={false}
-				/>
 				<SwiperBanner 
 					bannerList={discoverModel.bannerList}
 				/>

@@ -10,7 +10,8 @@ export default {
 	effects: {
 		*getBanner({payload}, { put, call, select }) {
 			const result = yield call(getBannerQuest, payload);
-			if(result.code===200) {
+
+			if(result && result.code===200) {
 				yield put({
 					type: 'updateState',
 					payload: {bannerList: result.banners}

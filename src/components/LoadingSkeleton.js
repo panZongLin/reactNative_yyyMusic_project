@@ -5,18 +5,28 @@ import {
     Text, 
 	StyleSheet,
 } from 'react-native';
-import {uw, uh, us, height} from '@/utils/fitConfig';
+import Spinkit from 'react-native-spinkit';
+import {uw, uh, us, height as deviceH} from '@/utils/fitConfig';
 
 
 const LoadingSkeleton = (props)=> {
     const {
-        skeletonVisible
+        visible,
+        height
     } = props;
 
-    if(skeletonVisible) {
+    if(visible) {
         return (
-            <View style={staticStyles.skeletonWrap}>
-                <Text>正在加载中...</Text>
+            <View style={{
+                ...staticStyles.skeletonWrap,
+                height: height===deviceH ? height : uh*height
+            }}>
+                <Spinkit type="Wave" color="#f00" size={28} />
+                <Text style={{
+                    fontSize: us(13), color: '#ccc'
+                }}> 
+                    正在加载中...
+                </Text>
             </View>
         )
     }
@@ -24,16 +34,18 @@ const LoadingSkeleton = (props)=> {
 }
 
 LoadingSkeleton.defaultProps = {
-    skeletonVisible: false
+    visible: false,
+    height: deviceH
 }
 
 LoadingSkeleton.propTypes = ({
-    skeletonVisible: PropTypes.bool,
+    visible: PropTypes.bool,
+    height: PropTypes.number
 })
 
 const staticStyles = StyleSheet.create({
     skeletonWrap: {
-        height: height,
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     }

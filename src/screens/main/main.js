@@ -8,6 +8,7 @@ import {
 	TouchableOpacity   
 } from 'react-native';
 //yarn add @react-native-community/viewpager@4.0.0
+//yarn add @react-native-scrollable-tab-view@1.0.0
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Discover from '@/screens/discover';
 import {uw, uh, us} from '@/utils/fitConfig';
