@@ -190,7 +190,6 @@ const staticStyles = StyleSheet.create({
         alignItems: 'flex-start'
     },
     infoItem: {
-        fontSize: us(13),
         color: '#666',
         lineHeight: uh*20
     },

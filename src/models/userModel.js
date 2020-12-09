@@ -13,7 +13,7 @@ export default {
 		*submitLogin({payload}, { put, call, select }) {
 			const result = yield call(submitLoginQuest, payload);
 
-            if(result.code===200) {
+            if(result && result.code===200) {
                 global.storage.save({
                     key: 'userInfo', 
                     data: {...result},		  					
@@ -28,7 +28,7 @@ export default {
         *submitLoginOut({payload}, { put, call, select }) {
             const result = yield call(submitLoginOutQuest, payload);
 
-            if(result.code===200) {
+            if(result && result.code===200) {
                 global.storage.remove({key: 'userInfo'});
                 global.navigation.closeDrawer();
                 global.navigation.replace('LoginPage');

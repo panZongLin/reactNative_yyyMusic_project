@@ -9,7 +9,6 @@ import {
 import {Header, Icon, Avatar} from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {uw, uh, us} from '@/utils/fitConfig';
-import { color } from 'react-native-reanimated';
 
 
 
@@ -88,7 +87,6 @@ UserTitle.propTypes = ({
 
 const staticStyles = StyleSheet.create({
     denglu: {
-        fontSize: us(14),
         color: '#000'
     }
 })
