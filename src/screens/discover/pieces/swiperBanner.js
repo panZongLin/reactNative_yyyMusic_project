@@ -17,20 +17,23 @@ const SwiperBanner = (props)=> {
         bannerItemClick,
     } = props;
 
-	return (
-        <Swiper style={{height: uh*130}} autoplay autoplayTimeout={5}>
-            {bannerList && bannerList.length!==0 && bannerList.map((item, idx)=> {
-                return ( 
-                    <View key={item.encodeId} style={staticStyles.container}>
-                        <Image                            
-                            style={staticStyles.imageBackground}
-                            source={{uri: item.imageUrl}}
-                        />
-                    </View>                            
-                )
-            })}
-        </Swiper>
-	)
+    if(bannerList.length !==0) {
+        return (
+            <Swiper style={{height: uh*130}} autoplay autoplayTimeout={5}>
+                {bannerList.map((item, idx)=> {
+                    return ( 
+                        <View key={item.encodeId} style={staticStyles.container}>
+                            <Image                            
+                                style={staticStyles.imageBackground}
+                                source={{uri: item.imageUrl}}
+                            />
+                        </View>                            
+                    )
+                })}
+            </Swiper>
+        )
+    }	
+    return <View></View>
 }
 
 SwiperBanner.defaultProps = {

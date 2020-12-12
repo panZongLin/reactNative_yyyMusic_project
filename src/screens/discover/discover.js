@@ -16,7 +16,7 @@ import Header from '@/components/Header';
 import {uw, uh, us} from '@/utils/fitConfig';
 
 import SwiperBanner from './pieces/swiperBanner';
-
+import CarouselBanner from './pieces/carouselBanner';
 
 const DiscoverPage = (props)=> {
 	const {
@@ -72,6 +72,9 @@ const DiscoverPage = (props)=> {
 				<SwiperBanner 
 					bannerList={discoverModel.bannerList}
 				/>
+				<CarouselBanner 
+                    bannerList={discoverModel.bannerList}
+                />
 			</ScrollView>			
 		</View>
 	)

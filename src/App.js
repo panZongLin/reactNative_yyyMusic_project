@@ -81,12 +81,8 @@ class App extends React.PureComponent {
                 PERMISSIONS.ANDROID.CAMERA, 
                 PERMISSIONS.ANDROID.CALL_PHONE
             ])
-                .then((result) => {
-                    //console.log('PERMISSIONS result', result)
-                })
-                .catch((error) => {
-                    //console.log('PERMISSIONS error', error)
-                });     
+                .then((result) => {})
+                .catch((error) => {});     
         }else {
             //...
         }

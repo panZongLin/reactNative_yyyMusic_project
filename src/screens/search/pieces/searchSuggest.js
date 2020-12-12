@@ -23,7 +23,7 @@ const SearchSuggest = (props)=> {
     if(suggestList.length !==0) {
         return (
             <View style={staticStyles.container}>
-                <TouchableHighlight underlayColor="#ccc" onPressOut={()=> confirmSearch(searchValue)}>
+                <TouchableHighlight underlayColor="#ccc" onPress={()=> confirmSearch(searchValue)}>
                     <View style={staticStyles.itemWrap}>
                         <Text style={staticStyles.keyw}>
                             搜索 “{searchValue}”
@@ -35,7 +35,7 @@ const SearchSuggest = (props)=> {
                         <TouchableHighlight 
                             key={item.keyword} 
                             underlayColor="#ccc"                           
-                            onPressOut={()=> confirmSearch(item.keyword)}
+                            onPress={()=> confirmSearch(item.keyword)}
                         >
                             <View style={staticStyles.itemWrap}>
                                 <AntDesign 

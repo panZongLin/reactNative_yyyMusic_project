@@ -26,7 +26,7 @@ const SearchResult = (props)=> {
                 <TouchableHighlight                        
                     style={{borderRadius: uh*20}}
                     underlayColor={'#ccc'}
-                    onPressOut={playSong}
+                    onPress={playSong}
                 >
                     <View style={staticStyles.playBtn}>
                         <AntDesign name="caretright" style={{marginLeft: uw*8}} />
@@ -39,7 +39,7 @@ const SearchResult = (props)=> {
                     <TouchableHighlight
                         key={item.id}                        
                         underlayColor={'rgba(0,0,0,0.1)'}
-                        onPressOut={playSong}
+                        onPress={playSong}
                     >
                         <View style={{...staticStyles.resultTitle, height: uh*60}}>
                             <View style={staticStyles.songInfo}>

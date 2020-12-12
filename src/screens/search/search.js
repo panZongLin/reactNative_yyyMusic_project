@@ -110,7 +110,7 @@ const SearchPage = (props)=> {
                     <TouchableHighlight                        
                         style={{borderRadius: uh*20}}
                         underlayColor={'#ccc'}
-                        onPressOut={playSong}
+                        onPress={playSong}
                     >
                         <View style={staticStyles.playBtn}>
                             <AntDesign name="caretright" style={{marginLeft: uw*8}} />
@@ -130,8 +130,7 @@ const SearchPage = (props)=> {
                             <TouchableHighlight 
                                 key={item.searchWord}                            
                                 underlayColor={'#ccc'}
-                                //不知道跟哪个依赖冲突还是别的原因，onPress触发不了
-                                onPressOut={()=> confirmSearch(item.searchWord)} 
+                                onPress={()=> confirmSearch(item.searchWord)} 
                             >
                                 <View style={staticStyles.hotItem}>
                                     <Text style={idxSty}>{idx+1}</Text>
